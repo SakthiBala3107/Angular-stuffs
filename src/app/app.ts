@@ -6,11 +6,21 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet],
   template: `
     <h1>Hello, {{ title() }}</h1>
+    <p>Fckin Easy</p>
+    <p>Fckin Easy</p>
 
     <router-outlet />
   `,
-  styles: [],
+  styles: [
+    `
+      p {
+        border: 2px solid red;
+        color: purple;
+        font-weight: 600;
+      }
+    `,
+  ],
 })
 export class App {
-  protected readonly title = signal('alainAngular');
+  protected readonly title = signal('Alains_Angular');
 }
