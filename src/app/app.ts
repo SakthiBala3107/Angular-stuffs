@@ -1,22 +1,23 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Home } from './home/home';
+import { Header } from './component/header/header';
+import { Testing } from './component/testing/testing';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Home, Header, Testing],
   template: `
-    <h1>Hello, {{ title() }}</h1>
-    <p>Fckin Easy</p>
-    <p>Fckin Easy</p>
-
-    <router-outlet />
+    <app-header />
+    <main>
+      <app-home />
+    </main>
+    <div><app-testing /></div>
   `,
   styles: [
     `
-      p {
-        border: 2px solid red;
-        color: purple;
-        font-weight: 600;
+      main {
+        padding: 16px;
       }
     `,
   ],
