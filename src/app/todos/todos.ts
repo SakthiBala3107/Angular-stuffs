@@ -1,28 +1,36 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Todoservice } from '../service/todos';
 import { Todo } from '../model/todo.type';
+import { catchError, map, of } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-todos',
   standalone: true,
-  imports: [],
+  imports: [], // No imports needed for built-in control flow
   templateUrl: './todos.html',
-  styleUrl: './todos.scss',
+  styleUrls: ['./todos.scss'],
 })
-
-//
-export class Todos implements OnInit {
+export class Todos {
   // DI
   public todoService = inject(Todoservice);
 
-  todoItems = signal<Todo[]>([]);
+  // fetch using signals
+  todosSignal = toSignal(
+    this.todoService.getTodos().pipe(
+      map((todos) => ({ data: todos, loading: false, error: null })),
+      catchError((err) => of({ data: [], loading: false, error: 'Failed to load todos' })),
+    ),
+    { initialValue: { data: [], loading: true, error: null } },
+  );
 
-  // useeffect
-  ngOnInit(): void {
-    const items = this.todoService.todoItems;
-
-    if (!items.length) return;
-
-    this.todoItems.set(items);
-  }
+  viewState = computed(() => {
+    const { data, loading, error } = this.todosSignal();
+    return {
+      isLoading: loading,
+      isError: !!error,
+      errorMessage: error,
+      todos: data,
+    };
+  });
 }
