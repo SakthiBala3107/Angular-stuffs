@@ -6,13 +6,13 @@ import { Testing } from './component/testing/testing';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Home, Header, Testing],
+  imports: [RouterOutlet, Home, Header],
   template: `
     <app-header />
     <main>
       <app-home />
     </main>
-    <div><app-testing /></div>
+    <!-- <div><app-testing /></div> -->
   `,
   styles: [
     `
