@@ -1,1 +1,11 @@
-<p>todos works!</p>
+@if (viewState().isLoading) {
+  <p>Loading todos...</p>
+}
+
+@if (viewState().isError) {
+  <p>Error: {{ viewState().errorMessage }}</p>
+}
+
+@for (todo of viewState().todos; track todo.id) {
+  <p class="todo">Todo {{ todo.id + 1 }} -> {{ todo.title }}</p>
+}
