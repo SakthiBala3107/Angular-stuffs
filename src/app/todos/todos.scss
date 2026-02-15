@@ -1,33 +1,110 @@
-/* Style the whole list container if needed */
+/* Container for the todo list */
 :host {
   display: block;
   padding: 1rem;
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
+  background-color: #f9fafb;
+}
+
+/* Heading */
+.todo-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #1e40af; // blue
+}
+
+/* Todo list container */
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 /* Each todo item */
-.todo {
+.todo-item {
   background-color: #fff;
-  border: 2px solid #3b82f6; /* full blue border */
-  padding: 0.5rem 1rem;
+  border: 2px solid #3b82f6; /* blue border */
+  border-left: 4px solid #3b82f6; /* left accent */
+  padding: 0.75rem 1rem;
   margin-bottom: 0.5rem;
-  border-radius: 6px;
+  border-radius: 0.5rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease; /* smooth hover animation */
+    box-shadow 0.2s ease;
 
-  /* Hover effect */
   &:hover {
-    background-color: #e0f2fe;
+    background-color: #e0f2fe; /* light blue */
     cursor: pointer;
-    transform: scale(1.03); /* scale up slightly */
+    transform: scale(1.03);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-left-color: #2563eb; /* darker blue accent on hover */
   }
 
-  /* Text styling */
-  font-size: 1rem;
-  color: #1f2937; /* dark gray */
+  .todo-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1f2937; /* dark gray */
+  }
+
+  /* Spinner for loading */
+  .spinner {
+    width: 1.25rem; /* 20px */
+    height: 1.25rem;
+    border: 4px solid #e5e7eb; /* light gray */
+    border-top-color: #3b82f6; /* blue top */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 0.5rem;
+  }
+
+  /* Error placeholder styling */
+  &.error {
+    .todo-title {
+      color: #ef4444; /* red */
+      font-weight: 600;
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  align-items: center; // vertical alignment
+  justify-content: center; // horizontal alignment
+  gap: 0.5rem; // space between spinner and text
+  padding: 0.5rem 0; // optional spacing inside li
+}
+
+.loading {
   font-weight: 500;
+  color: #1e40af; // blue
+}
+
+/* Spinner */
+.spinner {
+  width: 1.25rem; /* 20px */
+  height: 1.25rem;
+  border: 4px solid #e5e7eb; /* light gray */
+  border-top-color: #3b82f6; /* blue top */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Spinner animation keyframes */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

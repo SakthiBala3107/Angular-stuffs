@@ -26,11 +26,19 @@ export class Todos {
 
   viewState = computed(() => {
     const { data, loading, error } = this.todosSignal();
+
     return {
       isLoading: loading,
       isError: !!error,
       errorMessage: error,
-      todos: data,
+      //  actual  data and loading and erro states
+      todos: loading
+        ? [{ id: -1, title: 'Loading todos...' }]
+        : error
+          ? [{ id: -2, title: 'Error: ' + error }]
+          : data,
     };
   });
+
+  //
 }

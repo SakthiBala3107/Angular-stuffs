@@ -1,11 +1,18 @@
-@if (viewState().isLoading) {
-  <p>Loading todos...</p>
-}
+<h2 class="todo-heading">Todo List</h2>
 
-@if (viewState().isError) {
-  <p>Error: {{ viewState().errorMessage }}</p>
-}
+<ul class="todo-list">
+  @for (todo of viewState().todos; track todo.id) {
+    <li class="todo-item {{ todo.id === -2 ? 'error' : '' }}">
+      <h4 class="todo-title">
+        {{ todo.id < 0 ? todo.title : todo.id + 1 + '. ' + todo.title }}
+      </h4>
 
-@for (todo of viewState().todos; track todo.id) {
-  <p class="todo">Todo {{ todo.id + 1 }} -> {{ todo.title }}</p>
-}
+      @if (todo.id === -1) {
+        <div class="loading-container">
+          <div class="loading">Loading todos...</div>
+          <div class="spinner"></div>
+        </div>
+      }
+    </li>
+  }
+</ul>
